@@ -49,9 +49,10 @@ brushColorBtn.addEventListener('change', () => {
 bucketColorBtn.addEventListener('change', () => {
   bucketColor = `#${bucketColorBtn.value}`;
   createCanvas();
+  restoreCanvas();
 });
 
-// // Eraser
+// Eraser
 eraser.addEventListener('click', () => {
   isEraser = true;
   // button styling
@@ -85,44 +86,44 @@ function createCanvas() {
   switchToBrush();
 }
 
-// // Clear Canvas
-// clearCanvasBtn.addEventListener('click', () => {
-//   createCanvas();
-//   drawnArray = [];
-//   // Active Tool
-//   activeToolEl.textContent = 'Canvas Cleared';
-//   setTimeout(switchToBrush, 1500);
-// });
+// Clear Canvas
+clearCanvasBtn.addEventListener('click', () => {
+  createCanvas();
+  drawnArray = [];
+  // Active Tool
+  activeToolEl.textContent = 'Canvas Cleared';
+  setTimeout(switchToBrush, 1500);
+});
 
-// // Draw what is stored in DrawnArray
-// function restoreCanvas() {
-//   for (let i = 1; i < drawnArray.length; i++) {
-//     context.beginPath();
-//     context.moveTo(drawnArray[i - 1].x, drawnArray[i - 1].y);
-//     context.lineWidth = drawnArray[i].size;
-//     context.lineCap = 'round';
-//     if (drawnArray[i].eraser) {
-//       context.strokeStyle = bucketColor;
-//     } else {
-//       context.strokeStyle = drawnArray[i].color;
-//     }
-//     context.lineTo(drawnArray[i].x, drawnArray[i].y);
-//     context.stroke();
-//   }
-// }
+// Draw what is stored in DrawnArray
+function restoreCanvas() {
+  for (let i = 1; i < drawnArray.length; i++) {
+    context.beginPath();
+    context.moveTo(drawnArray[i - 1].x, drawnArray[i - 1].y);
+    context.lineWidth = drawnArray[i].size;
+    context.lineCap = 'round';
+    if (drawnArray[i].eraser) {
+      context.strokeStyle = bucketColor;
+    } else {
+      context.strokeStyle = drawnArray[i].color;
+    }
+    context.lineTo(drawnArray[i].x, drawnArray[i].y);
+    context.stroke();
+  }
+}
 
-// // Store Drawn Lines in DrawnArray
-// function storeDrawn(x, y, size, color, erase) {
-//   const line = {
-//     x,
-//     y,
-//     size,
-//     color,
-//     erase,
-//   };
-//   console.log(line);
-//   drawnArray.push(line);
-// }
+// Store Drawn Lines in DrawnArray
+function storeDrawn(x, y, size, color, erase) {
+   const line = {
+    x,
+    y,
+    size,
+    color,
+    erase,
+  };
+  console.log(line);
+  drawnArray.push(line);
+}
 
 // Get Mouse Position
 function getMousePosition(event) {
@@ -168,38 +169,38 @@ canvas.addEventListener('mouseup', () => {
   console.log('mouse is unclicked');
 });
 
-// // Save to Local Storage
+// Save to Local Storage
 // saveStorageBtn.addEventListener('click', () => {
 
-//   // Active Tool
+  // Active Tool
 //   activeToolEl.textContent = 'Canvas Saved';
 //   setTimeout(switchToBrush, 1500);
 // });
 
-// // Load from Local Storage
+  // Load from Local Storage
 // loadStorageBtn.addEventListener('click', () => {
 //   if (localStorage.) {
 //     drawnArray = JSON(localStorage.);
 
-//   // Active Tool
+  // Active Tool
 //     activeToolEl.textContent = 'Canvas Loaded';
 //     setTimeout(switchToBrush, 1500);
 //   } 
 
 // });
 
-// // Clear Local Storage
+// Clear Local Storage
 // clearStorageBtn.addEventListener('click', () => {
 
-//   // Active Tool
+  // Active Tool
 //   activeToolEl.textContent = 'Local Storage Cleared';
 //   setTimeout(switchToBrush, 1500);
 // });
 
-// // Download Image
+  // Download Image
 // downloadBtn.addEventListener('click', () => {
 
-//   // Active Tool
+  // Active Tool
 //   activeToolEl.textContent = 'Image File Saved';
 //   setTimeout(switchToBrush, 1500);
 // });
