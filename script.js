@@ -157,7 +157,9 @@ canvas.addEventListener('mousemove', (event) => {
       currentColor,
       isEraser,
     );
-   } 
+   } else {
+    storeDrawn(undefined);
+  }
 });
 
 // Mouse Up
