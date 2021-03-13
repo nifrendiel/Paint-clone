@@ -11,6 +11,7 @@ const loadStorageBtn = document.getElementById('load-storage');
 const clearStorageBtn = document.getElementById('clear-storage');
 const downloadBtn = document.getElementById('download');
 const { body } = document;
+const TIMER_SWITCH = 1500;
 
 // Global Variables
 const canvas = document.createElement('canvas');
@@ -19,18 +20,14 @@ const context = canvas.getContext('2d');
 
 let currentSize = 10;
 let bucketColor = '#FFFFFF';
-let currentColor = '#A51DAB';
+let currentColor = '#FF94C6';
 let isEraser = false;
 let isMouseDown = false;
 let drawnArray = [];
 
 // Formatting Brush Size
 function displayBrushSize() {
-  if (brushSlider.value < 10) {
-    brushSize.textContent = `0${brushSlider.value}`;
-  } else {
-    brushSize.textContent = brushSlider.value;
-  }
+  brushSize.textContent = brushSlider.value.padStart(2,'0');
 }
 
 // Setting Brush Size
@@ -86,13 +83,18 @@ function createCanvas() {
   switchToBrush();
 }
 
+// Timeout
+function brushTimeSwitch(ms) {
+  setTimeout(switchToBrush, ms);
+}
+
 // Clear Canvas
 clearCanvasBtn.addEventListener('click', () => {
   createCanvas();
   drawnArray = [];
   // Active Tool
   activeToolEl.textContent = 'Canvas Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSwitch(TIMER_SWITCH);
 });
 
 // Draw what is stored in DrawnArray
@@ -172,7 +174,7 @@ saveStorageBtn.addEventListener('click', () => {
   localStorage.setItem('savedCanvas', JSON.stringify(drawnArray));
   // Active Tool
   activeToolEl.textContent = 'Canvas Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSwitch(TIMER_SWITCH);
 });
 
   // Load from Local Storage
@@ -182,7 +184,7 @@ loadStorageBtn.addEventListener('click', () => {
     restoreCanvas();
   // Active Tool
     activeToolEl.textContent = 'Canvas Loaded';
-    setTimeout(switchToBrush, 1500);
+    brushTimeSwitch(TIMER_SWITCH);
   } else {
     activeToolEl.textContent = 'No Canvas Found';
   }
@@ -193,7 +195,7 @@ clearStorageBtn.addEventListener('click', () => {
   localStorage.removeItem('savedCanvas');
   // Active Tool
   activeToolEl.textContent = 'Local Storage Cleared';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSwitch(TIMER_SWITCH);
 });
 
   // Download Image
@@ -202,7 +204,7 @@ downloadBtn.addEventListener('click', () => {
   downloadBtn.download = 'your-drawing.jpeg';
   // Active Tool
   activeToolEl.textContent = 'Image File Saved';
-  setTimeout(switchToBrush, 1500);
+  brushTimeSwitch(TIMER_SWITCH);
 });
 
 // Event Listener
